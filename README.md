@@ -2,9 +2,9 @@ star the project. enough stars and i will actively update
 
 this is still in progress
 
-# Xen Discord RAT
+# Zenny Discord RAT
 
-The Xen Discord RAT is a powerful and versatile bot-based C2 (Command and Control) tool designed to provide remote access and control over multiple computer connections. With this tool, you can perform various tasks and manage computers from anywhere, enabling remote administration over long distances.
+The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Control) tool designed to provide remote access and control over multiple computer connections. With this tool, you can perform various tasks and manage computers from anywhere, enabling remote administration over long distances.
 
 ## Features
 
