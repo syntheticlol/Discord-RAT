@@ -1,6 +1,6 @@
-# Discord-RAT
-Discord RAT: A versatile bot-based C2 tool that can manage multiple clients at once.
+star the project. enough stars and i will actively update 
 
+this is still in progress
 
 # Discord Remote Admin Tool
 
