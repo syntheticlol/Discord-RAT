@@ -26,4 +26,6 @@ The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Cont
 
 - Python 3.x
 - Discord.py library
+
+![lol](https://cdn.discordapp.com/attachments/1113978822384173128/1113992782948880444/image.png)
 - Operating System: Windows/Linux/macOS
