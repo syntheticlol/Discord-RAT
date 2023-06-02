@@ -1,0 +1,17 @@
+os
+cv2
+discord
+asyncio
+ctypes
+psutil
+requests
+datetime
+platform
+numpy
+subprocess
+webbrowser
+pyautogui
+socket
+pyperclip
+pygame
+Pillow
