@@ -8,6 +8,8 @@ this is still in progress
 
 The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Control) tool designed to provide remote access and control over multiple computer connections. With this tool, you can perform various tasks and manage computers from anywhere, enabling remote administration over long distances.
 
+![lol](https://cdn.discordapp.com/attachments/1113978822384173128/1113992782948880444/image.png)
+
 ## Features
 
 - **Remote Desktop**: Access and control the desktop of connected computers remotely, allowing you to perform actions as if you were physically present.
@@ -26,6 +28,4 @@ The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Cont
 
 - Python 3.x
 - Discord.py library
-
-![lol](https://cdn.discordapp.com/attachments/1113978822384173128/1113992782948880444/image.png)
 - Operating System: Windows/Linux/macOS
