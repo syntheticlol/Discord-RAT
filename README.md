@@ -29,3 +29,59 @@ The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Cont
 - Python 3.x
 - Discord.py library
 - Operating System: Windows/Linux/macOS
+
+
+```
+Remote Desktop:
+
+  screenshot: Takes a screenshot of the user's PC
+  record: Records the user's screen for 30 seconds
+  webcam: Captures a picture from the user's webcam
+
+------------------------------------------------------------------------------------------
+
+Information Gathering:
+
+  time: Retrieves the user's date and time
+  Ipinfo: Retrieves the user's IP information
+  sysinfo: Retrieves the user's system information
+  usage: Tells you the users disk and cpu usage
+
+------------------------------------------------------------------------------------------
+
+Remote Shell Commands:
+
+  shell <session> <command>: Executes a command on the victim's computer
+------------------------------------------------------------------------------------------
+
+File Management:
+
+  website: Sends the user to a website of choice
+  getdownloads: Gets all Users files in downloads folder
+  download: Can download any file in their downloads folder
+
+------------------------------------------------------------------------------------------
+
+System Control:
+
+  restart: Restarts the user's computer
+  shutdown: Shuts down the user's computer
+
+------------------------------------------------------------------------------------------
+
+Malware Commands
+
+  upload <session> <filelink>: Uploads and downloads file and then runs it on victims pc
+  startup <session>: puts the current file on startup
+
+------------------------------------------------------------------------------------------
+Troll Commands:
+  
+  furryporn <session>: this spams furry porn browsers on victims browser to flood their history
+  fork <session>: forkbombs their computer using simple batch script
+  rickroll <session>: rickrolls their computer for 30 seconds and they cannot escape
+  music <session> <file_attachment>: plays music on their computer
+  bluescreen <session>: bluescreens victims pc
+
+------------------------------------------------------------------------------------------
+```
