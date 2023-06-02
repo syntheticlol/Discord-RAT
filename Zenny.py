@@ -116,6 +116,10 @@ Malware Commands
 
   .upload <session> <filelink>: Uploads and downloads file and then runs it on victims pc
   .startup <session>: COMING SOON
+  .ddos <website>: COMING SOON
+  .spread <session>: COMING SOON
+  .roblox <session>: COMING SOON
+  .exodus <session>: COMING SOON
 
 ------------------------------------------------------------------------------------------
 ```
