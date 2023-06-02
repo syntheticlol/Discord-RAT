@@ -41,7 +41,7 @@ echo upx option: builds with pyinstaller doesnt obf but packs with upx
 set /p obf="Do you want to Obfuscate your file? (y/n/upx): "
 if "%obf%"=="y" goto obf
 if "%obf%"=="n" goto non
-if "%obf%"=="n" goto upx
+if "%obf%"=="upx" goto upx
 
 :obf
 py obf.py -o output.py building.py
