@@ -49,54 +49,60 @@ Todo Features
 
 Remote Desktop:
 
-  screenshot: Takes a screenshot of the user's PC
-  record: Records the user's screen for 30 seconds
-  webcam: Captures a picture from the user's webcam
+  .screenshot <sessionkey>: Takes a screenshot of the user's PC
+  .record <sessionkey>: Records the user's screen for 30 seconds
+  .webcam <sessionkey>: Captures a picture from the user's webcam
 
 ------------------------------------------------------------------------------------------
 
 Information Gathering:
 
-  time: Retrieves the user's date and time
-  Ipinfo: Retrieves the user's IP information
-  sysinfo: Retrieves the user's system information
-  usage: Tells you the users disk and cpu usage
+  .time <sessionkey>: Retrieves the user's date and time
+  .Ipinfo <sessionkey>: Retrieves the user's IP information
+  .sysinfo <sessionkey>: Retrieves the user's system information
+  .usage <sessionkey>: Tells you the users disk and cpu usage
 
 ------------------------------------------------------------------------------------------
 
 Remote Shell Commands:
 
-  shell <session> <command>: Executes a command on the victim's computer
+  .shell <session> <command>: Executes a command on the victim's computer
+
 ------------------------------------------------------------------------------------------
 
 File Management:
 
-  website: Sends the user to a website of choice
-  getdownloads: Gets all Users files in downloads folder
-  download: Can download any file in their downloads folder
+  .website <sessionkey> <https://example.com>: Sends the user to a website of choice
+  .getdownloads <sessionkey>: Gets all Users files in downloads folder
+  .download <sessionkey>: Can download any file in their downloads folder
 
 ------------------------------------------------------------------------------------------
 
 System Control:
 
-  restart: Restarts the user's computer
-  shutdown: Shuts down the user's computer
+  .restart <sessionkey>: Restarts the user's computer
+  .shutdown <sessionkey>: Shuts down the user's computer
 
 ------------------------------------------------------------------------------------------
 
 Malware Commands
 
-  upload <session> <filelink>: Uploads and downloads file and then runs it on victims pc
-  startup <session>: puts the current file on startup
+  .upload <session> <filelink>: Uploads and downloads file and then runs it on victims pc
+  .startup <session>: COMING SOON
+  .ddos <website>: COMING SOON
+  .spread <session>: COMING SOON
+  .roblox <session>: COMING SOON
+  .exodus <session>: COMING SOON
 
 ------------------------------------------------------------------------------------------
+
 Troll Commands:
   
-  furryporn <session>: this spams furry porn browsers on victims browser to flood their history
-  fork <session>: forkbombs their computer using simple batch script
-  rickroll <session>: rickrolls their computer for 30 seconds and they cannot escape
-  music <session> <file_attachment>: plays music on their computer
-  bluescreen <session>: bluescreens victims pc
+  .furryporn <session>: this spams furry porn browsers on victims browser to flood their history
+  .fork <session>: forkbombs their computer using simple batch script
+  .rickroll <session>: rickrolls their computer for 30 seconds and they cannot escape
+  .music <session> <file_attachment>: plays music on their computer
+  .bluescreen <session>: COMING SOON
 
 ------------------------------------------------------------------------------------------
 ```
