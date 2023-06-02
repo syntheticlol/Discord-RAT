@@ -1,5 +1,6 @@
 # synthetic#3681
 # dm me for updates on project
+# https://t.me/syntheticlol
 import os
 import cv2
 import discord
