@@ -1,6 +1,5 @@
-os
-cv2
-discord
+opencv-python
+discord.py
 asyncio
 ctypes
 psutil
@@ -8,10 +7,8 @@ requests
 datetime
 platform
 numpy
-subprocess
 webbrowser
 pyautogui
-socket
 pyperclip
 pygame
 Pillow
