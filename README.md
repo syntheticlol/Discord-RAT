@@ -32,6 +32,8 @@ The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Cont
 
 
 ```
+------------------------------------------------------------------------------------------
+
 Remote Desktop:
 
   screenshot: Takes a screenshot of the user's PC
