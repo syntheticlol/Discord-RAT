@@ -24,6 +24,17 @@ The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Cont
 
 - **System Monitoring**: Monitor system resources, including CPU usage, memory utilization, and network activity, providing insights into the performance and health of connected computers.
 
+## TODO
+```
+Todo Features
+
+   Less file size
+   Anti debug
+   Hidden bot token
+   More commands for all categories
+   errorhandling
+   NO BUGS
+```
 ## Requirements
 
 - Python 3.x
