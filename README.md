@@ -76,6 +76,8 @@ The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Cont
 
 - `.restart <sessionkey>`: Restarts the user's computer.
 - `.shutdown <sessionkey>`: Shuts down the user's computer.
+- `.screenoff <sessionkey>`: Shuts off Victims Monitor
+- `.screenon <sessionkey>`: Turns Back on Victims Monitor
 </details>
 
 <details>
