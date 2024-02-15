@@ -1,6 +1,19 @@
 @echo off
 setlocal
 
+goto start
+
+:start
+echo Have you Installed all requirements before running?
+set /p Install="Install Requirements? y/n: "
+if "%install%"=="y" goto main
+if "%install%"=="n" goto installrq
+pause
+
+:installrq
+pip install -r requirements.txt
+goto main
+
 :main
 copy Zenny.py building.py
 chcp 65001
