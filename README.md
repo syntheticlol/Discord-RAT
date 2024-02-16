@@ -108,10 +108,7 @@ The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Cont
 
 1. Go to [Discord Developer Portal](https://discord.com/developers/applications) and sign in.
 2. Create a new application and set up your bot.
-3. In the bot settings, ensure the required options as shown below:
-
-![Bot Settings Image](https://cdn.discordapp.com/attachments/1113445608691335181/1114385999766749184/image.png)
-
+3. In the bot settings, ensure the required options (Intents) are checked on
 4. Go to the OAuth section, select the bot and administrator permissions, scroll down, and copy the generated link.
 5. Go back to the bot settings, reset the token, and copy it.
 6. Update the necessary configuration files with your bot token.
