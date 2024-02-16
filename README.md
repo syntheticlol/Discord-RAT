@@ -54,13 +54,11 @@ The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Cont
 - `.time <sessionkey>`: Retrieves the user's date and time.
 - `.Ipinfo <sessionkey>`: Retrieves the user's IP information.
 - `.sysinfo <sessionkey>`: Retrieves the user's system information.
+- `.cpass <sesisonkey>`: Obtains Targets Chrome Passwords.
 - `.usage <sessionkey>`: Tells you the user's disk and CPU usage.
-</details>
-
-<details>
-<summary>Remote Shell Commands</summary>
-
-- `.shell <session> <command>`: Executes a command on the victim's computer.
+- `.startkeylogger <sesisonkey>`: Logs Key Strokes.
+- `.stopkeylogger <seesionnkey>`: Stops KeyStrokes.
+- `.dumpkeylogger <sessionkey>`: Dumps key log.txt from target machines.
 </details>
 
 <details>
@@ -76,27 +74,34 @@ The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Cont
 
 - `.restart <sessionkey>`: Restarts the user's computer.
 - `.shutdown <sessionkey>`: Shuts down the user's computer.
-- `.screenoff <sessionkey>`: Shuts off Victims Monitor
-- `.screenon <sessionkey>`: Turns Back on Victims Monitor
+- `.screenoff <sessionkey>`: Shuts off Victims Monitor.
+- `.screenon <sessionkey>`: Turns Back on Victims Monitor.
+- `.dismgr <sessionkey>`: Disables Targets Task Manager.
+- `.enablemgr <sessionkey>`: Enable Targets Task Manager.
+- `.blockin <sessionkey>`: Blocks Targets Keyboard / Mouse Input.
+- `.unblockin <sessionkey>`: Un-Blocks Targets Keyboard / Mouse Input.
 </details>
 
 <details>
 <summary>Malware Commands</summary>
 
-- `.upload <session> <filelink>`: Uploads and downloads a file and then runs it on the victim's PC.
-- `.startup <session>`: Puts the RAT on startup.
+- `.upload <sessionkey> <filelink>`: Uploads and downloads a file and then runs it on the victim's PC.
+- `.startup <sessionkey>`: Puts the RAT on startup.
 - `.ddos <website>`: COMING SOON.
-- `.spread <session>`: COMING SOON.
-- `.roblox <session>`: COMING SOON.
-- `.exodus <session>`: COMING SOON.
+- `.spread <sessionkey>`: COMING SOON.
+- `.roblox <sessionkey>`: COMING SOON.
+- `.exodus <sessionkey>`: COMING SOON.
 </details>
 
 <details>
 <summary>Troll Commands</summary>
 
-- `.rickroll <session>`: Rickrolls them for 30 seconds, and they cannot escape.
-- `.music <session> <file_attachment>`: Plays music on their computer.
-- `.bluescreen <session>`: COMING SOON.
+- `.rickroll <sessionkey>`: Rickrolls them for 30 seconds, and they cannot escape.
+- `.music <sessionkey> <file_attachment>`: Plays music on their computer.
+- `.bluescreen <sessionkey>`: COMING SOON.
+- `.fp <sessionkey>`: Spams furry stuff browsers on victim's browser to flood their history.
+- `.fork <sessionkey>`: Forkbombs their computer using a simple batch script.
+- `.winspam <sessionkey>`: Spams a browser window [warning can't stop it].
 </details>
 
 ## 🔧 Setup
@@ -110,7 +115,7 @@ The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Cont
 4. Go to the OAuth section, select the bot and administrator permissions, scroll down, and copy the generated link.
 5. Go back to the bot settings, reset the token, and copy it.
 6. Update the necessary configuration files with your bot token.
-7.Run the Zenny Discord RAT script using Python 3.x.
+7. Run the Zenny Discord RAT script using Python 3.x.
 
 ## 📄 License
 
