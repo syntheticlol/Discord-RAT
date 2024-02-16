@@ -1,15 +1,11 @@
-opencv-python
 discord.py
-asyncio
-ctypes
-psutil
-requests
-datetime
-platform
-numpy
-webbrowser
-pyautogui
-pyperclip
-pygame
+opencv-python
 Pillow
-aiohttp>=3.9.0 # not directly required, pinned by Snyk to avoid a vulnerability
+aiohttp
+psutil
+pywin32
+requests
+mss
+pyautogui
+pygame
+pynput
