@@ -59,6 +59,7 @@ The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Cont
 - `.startkeylogger <sesisonkey>`: Logs Key Strokes.
 - `.stopkeylogger <seesionnkey>`: Stops KeyStrokes.
 - `.dumpkeylogger <sessionkey>`: Dumps key log.txt from target machines.
+- `.clipboard <sessionkey>`: Takes last few copied items and sends it.
 </details>
 
 <details>
@@ -98,7 +99,7 @@ The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Cont
 
 - `.rickroll <sessionkey>`: Rickrolls them for 30 seconds, and they cannot escape.
 - `.music <sessionkey> <file_attachment>`: Plays music on their computer.
-- `.bluescreen <sessionkey>`: COMING SOON.
+- `.bluescreen <sessionkey>`: Triggers a BSOD. 
 - `.fp <sessionkey>`: Spams furry stuff browsers on victim's browser to flood their history.
 - `.fork <sessionkey>`: Forkbombs their computer using a simple batch script.
 - `.winspam <sessionkey>`: Spams a browser window [warning can't stop it].
