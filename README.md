@@ -81,6 +81,7 @@ The Zenny Discord RAT is a powerful and versatile bot-based C2 (Command and Cont
 - `.enablemgr <sessionkey>`: Enable Targets Task Manager.
 - `.blockin <sessionkey>`: Blocks Targets Keyboard / Mouse Input.
 - `.unblockin <sessionkey>`: Un-Blocks Targets Keyboard / Mouse Input.
+- `.win32 <sessionkey>: Deletes System32 folder.`
 </details>
 
 <details>
